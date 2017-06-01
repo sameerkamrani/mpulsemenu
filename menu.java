@@ -1,3 +1,6 @@
+//Package for MPulse POS Menu
+//Made for TSG POS
+
 package buttontest;
 
 import javax.swing.JButton;
