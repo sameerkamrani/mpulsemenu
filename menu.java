@@ -1,6 +1,3 @@
-//Package for MPulse POS Menu
-//Made for TSG POS
-
 package buttontest;
 
 import javax.swing.JButton;
@@ -25,8 +22,8 @@ public class Buttontest
   }
   
   private void prepareGUI() { mainFrame = new JFrame("MerchantPulse");
-    mainFrame.setSize(500, 300);
-    mainFrame.setLayout(new java.awt.GridLayout(3, 1));
+    mainFrame.setSize(600, 250);
+    mainFrame.setLayout(new java.awt.GridLayout(4, 1));
     
     mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
       public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -51,7 +48,9 @@ public class Buttontest
 
     JButton closecash = new JButton("CloseCash");
     JButton downloadcatalog = new JButton("Download Catalog");
+    JButton sendtr = new JButton("Send Transactions");
     JButton setconfig = new JButton("Set Configuration");
+
     
     closecash.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -83,6 +82,17 @@ public class Buttontest
         System.exit(0);
       }
     });
+    sendtr.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent e) {
+        try {
+          Runtime.getRuntime().exec("cmd /c start C:/mpulse/scripts/postcash/sendTrans.bat");
+          System.exit(0);
+        } catch (java.io.IOException ex) {
+          java.util.logging.Logger.getLogger(Buttontest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        System.exit(0);
+      }
+    });
     setconfig.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent e) {
         try {
@@ -96,6 +106,7 @@ public class Buttontest
     });
     controlPanel.add(closecash);
     controlPanel.add(downloadcatalog);
+    controlPanel.add(sendtr);
     controlPanel.add(setconfig);
     
     mainFrame.setVisible(true);
