@@ -1,5 +1,7 @@
 package buttontest;
 
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,9 +19,49 @@ public class Buttontest
   public Buttontest() { prepareGUI(); }
   
   public static void main(String[] args) {
+    boolean check = false;
     Buttontest buttontest = new Buttontest();
-    buttontest.showButtonDemo();
+    check = buttontest.checkIntConnection();
+    if(check==true){
+        buttontest.showButtonDemo();
+    }
+    else if(check==false){
+      buttontest.IntNotConnected();
   }
+    
+  }
+  
+ public boolean checkIntConnection()
+    {
+        boolean status = false;
+        Socket sock = new Socket();
+        InetSocketAddress address = new InetSocketAddress("www.google.com", 80);
+        try
+        {
+           sock.connect(address, 3000);
+           if(sock.isConnected())
+           {
+               status=true;
+           }
+        }
+        catch(Exception e)
+        {
+
+        }
+        finally
+        {
+            try
+            {
+                sock.close();
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
+
+        return status;
+    }
   
   private void prepareGUI() { mainFrame = new JFrame("MerchantPulse");
     mainFrame.setSize(600, 250);
@@ -109,6 +151,9 @@ public class Buttontest
     controlPanel.add(sendtr);
     controlPanel.add(setconfig);
     
+    mainFrame.setVisible(true);
+  }
+  private void IntNotConnected() { headerLabel.setText("Internet Not Connected");
     mainFrame.setVisible(true);
   }
 }
